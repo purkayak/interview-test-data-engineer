@@ -1,59 +1,34 @@
-# Data Engineer Interview Test
 
-Prospa is looking for a high quality data engineer which can deliver comprehensive solutions for our continuity and business growth. 
+--------------
+Choice of DB used MySQL
+--------------
 
-The Analytics team drives the data culture at Prospa, we want to change how we produce data from large batches to micro batching, from daily to near real-time/streaming processing, from tabular reports to insightful dashboards.    
-
-You can be part of an amazing team which deals with data all the time using different process, tools and technologies.
-
-Following is a little treasure and challenge for those keen on joining this amazing company and team.
-
-# The Project
-Build a small ETL process to digest a few set of files into a data warehouse like project. 
-
-We are expecting an end-to-end ETL solution to deliver a simple star schema which an end user can easily slice and dice the data through a report or using basic ad-hoc query.
-
-### Tools and Technologies
-We are a Python and SQL workshop, we would like to see this project using just those tools.  
-
-However, we are open to other tools and technologies if we are able to easily replicate on our side. 
-
-For the database, use a simple and light optimizer for your database, choose the one which can run a browser, but don't be limited to it. 
-
-Please, avoid licensed products, we may not be able to proceed with this restriction on our own, if this is the case you may need to book a meeting to bring your tool and demo to us. 
-
-How to do it?
------------------------
-Fork this repo, build your ETL process and commit the code with your answers. Open a Pull Request and send us a message highlighting the test is completed.
-
-#### Rules
-* it must come with step by step instructions to run the code.
-* please, be mindful that your code might be moved or deleted after we analyse the PR. 
-* use the best practices
-* be able to explain from the ground up the whole process on face to face interview
-
-The small ETL project
---------- 
 
 1. The data for this exercise can be found on the `data.zip` file. Can you describe the file format?
-
-**Super Bonus**: generate your own data through the instructions on the encoded file `bonus_etl_data_gen.txt`.
-To get the bonus points, please encoded the file with the instructions were used to generate the files.
+File format is pipe delimited. All files have additional | at end of line. Hence used |\n as End of Line.
 
 2. Code you scripts to load the data into a database.
+Created new set of table for the transaction database with size based on data profile
 
 3. Design a star schema model which the data should flow.
+Desgined a Star Schema for Order details. 
 
 4. Build your process to load the data into the star schema 
+Scripts included for loading star schema
 
 **Bonus** point: 
 - add a fields to classify the customer account balance in 3 groups 
+Included a new field.
 - add revenue per line item 
+Included a new field
 - convert the dates to be distributed over the last 2 years
+Added partition to Fact table on o_orderdate
 
 5. How to schedule this process to run multiple times per day?
  
 **Bonus**: What to do if the data arrives in random order and times via streaming?
+Schedling can be attained through a cron job or shell scripting.
+Or if there are other tools being used such as Talend (open source free tier), job scheduling can be attained.
 
 6. How to deploy this code?
 
@@ -61,6 +36,9 @@ To get the bonus points, please encoded the file with the instructions were used
 
 Data Reporting
 -------
+
+---Seperate file created for the queries.
+
 One of the most important aspects to build a DWH is to deliver insights to end-users. Besides the question bellow, what extra insights you can think of can be generated from this dataset?
 
 Can you using the designed star schema (or if you prefer the raw data), generate SQL statements to answer the following questions:
@@ -79,10 +57,13 @@ Can you using the designed star schema (or if you prefer the raw data), generate
 Data profilling
 ----   
 Data profiling are bonus.
+Tables have been crated based on Data profiling
 
 What tools or techniques you would use to profile the data?
+You can either use Talend Or Informatica for data profiling.
  
 What results of the data profiling can impact on your analysis and design?   
+Based on results, you can change partitioning strategy. Also, identify the correct index format or distribution (clustering) of the data for optimal performace of queries.
 
 
 
@@ -90,13 +71,9 @@ Architecture
 -----
 If this pipeline is to be build for a real live environment.
 What would be your recommendations in terms of tools and process?
+Woudl  recommend schedulign of jobs. Back up strategy for maintenance. Also implement processes in place to load data with quality.
 
 Would be a problem if the data from the source system is growing at 6.1-12.7% rate a month?
+You might want to consider changing partition stratey in future based on data growth.
 
 
-
-ERD
---
-![alt text](erd.png "ERD")
-
-Author: adilsonmendonca
